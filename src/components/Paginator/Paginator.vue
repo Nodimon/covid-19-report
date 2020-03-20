@@ -25,10 +25,22 @@
                 pagination: {}
             }
         },
+        watch: {
+            results: {
+                deep: true,
+                handler() {
+                    this.pagination =  {
+                        currentPage: 1,
+                        lastPage:    Math.ceil(this.results.length / this.perPage),
+                        total:       this.results.length,
+                        nextPage:    2,
+                        prevPage:    0
+                    }
+                }
+            }
+        },
         methods: {
             updatePagination(event) {
-                // console.log('Event', event)
-
                 if (event > this.pagination.lastPage) {
                     this.pagination.nextPage = null;
                     return;
@@ -45,8 +57,6 @@
             },
         },
         created() {
-            // this.pagination = this.props
-            // console.log("Props paginator", this.$props)
             this.pagination =  {
                 currentPage: 1,
                     lastPage:    Math.ceil(this.results.length / this.perPage),

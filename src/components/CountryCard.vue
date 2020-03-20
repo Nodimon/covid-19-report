@@ -6,7 +6,7 @@
             <div class="d-flex justify-content-between p-4 mt-3">
                 <p>Confirmed: {{ confirmed }}</p>
                 <p>Recovered: {{ recovered }}</p>
-                <p>Dead: {{ dead }}</p>
+                <p>Deaths: {{ dead }}</p>
             </div>
 
             <div id="chart">
@@ -35,20 +35,8 @@
                 confirmed: 0,
                 recovered: 0,
                 dead: 0,
-                series: [
-                    {
-                        name: 'Confirmed',
-                        data: [1,2,3,4,5]
-                    },
-                    {
-                        name: 'Recovered',
-                        data: [5,3,1,6,9]
-                    },
-                    {
-                        name: 'Deaths',
-                        data: [0,0,3,5,7]
-                    }
-                ],
+                dates: [],
+                series: [],
                 chartOptions: {
                     chart: {
                         type: 'area',
@@ -86,11 +74,12 @@
                     yaxis: {
                         labels: {
                             formatter: function (val) {
-                                return (val / 1000000).toFixed(0);
+                                return val
+                                // return (val / 1000000).toFixed(0);
                             },
                         },
                         title: {
-                            text: 'Price'
+                            text: 'Number'
                         },
                     },
                     xaxis: {
@@ -103,7 +92,8 @@
                         shared: false,
                         y: {
                             formatter: function (val) {
-                                return (val / 1000000).toFixed(0)
+                                return val
+                                // return (val / 1000000).toFixed(0)
                             }
                         }
                     }
@@ -118,22 +108,57 @@
                 deep: true
             }
         },
-        computed: {
-            getConfirmed() {
-
-            },
-            getRecovered() {
-
-            },
-            getDeaths() {
-
-            }
-        },
         methods: {
             calculateStats() {
                 this.confirmed = this.countryData[1][this.countryData[1].length - 1].confirmed
                 this.recovered = this.countryData[1][this.countryData[1].length - 1].recovered
                 this.dead = this.countryData[1][this.countryData[1].length - 1].deaths
+
+                this.updateChart()
+            },
+            // TODO refactor this shit
+            updateChart() {
+                let confirmed = []
+                let recovered = []
+                let deaths = []
+                const dataLength = this.countryData[1].length;
+
+                for (let i = 0; i < dataLength - 7; i += 10) {
+                    this.dates.push(this.countryData[1][i].date)
+                    confirmed.push(this.countryData[1][i].confirmed)
+                    recovered.push(this.countryData[1][i].recovered)
+                    deaths.push(this.countryData[1][i].deaths)
+                }
+
+                this.dates.push(this.countryData[1][dataLength-1].date)
+                confirmed.push(this.countryData[1][dataLength-1].confirmed)
+                recovered.push(this.countryData[1][dataLength-1].recovered)
+                deaths.push(this.countryData[1][dataLength-1].deaths)
+
+                this.chartOptions = {...this.chartOptions, ...{
+                        xaxis: {
+                            categories: this.dates,
+                            title: {
+                                text: 'Month'
+                            }
+                        },
+                    }
+                }
+
+                this.series = [
+                    {
+                        name: 'Confirmed',
+                        data: confirmed
+                    },
+                    {
+                        name: 'Recovered',
+                        data: recovered
+                    },
+                    {
+                        name: 'Deaths',
+                        data: deaths
+                    }
+                ]
             }
         },
         created() {

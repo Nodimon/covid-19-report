@@ -1,12 +1,24 @@
 <template>
     <div id="search" class="d-flex justify-content-end">
-        <input type="text" class="form-control mb-3" aria-describedby="search" placeholder="Search">
+        <input v-model="search" type="text" class="form-control mb-3" aria-describedby="search" placeholder="Search">
     </div>
 </template>
 
 <script>
+    import { debounce } from "debounce";
+
     export default {
-        name: "Search"
+        name: "Search",
+        data() {
+            return {
+                search: ''
+            }
+        },
+        watch: {
+            search: debounce(function (term) {
+                this.$store.dispatch('search', this.search)
+            }, 500)
+        }
     }
 </script>
 

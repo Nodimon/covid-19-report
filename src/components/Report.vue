@@ -10,7 +10,10 @@
             </CountryCard>
 
         </div>
-        <Paginator v-if="results.length" :per-page="perPage" :results="results" @updatePage="updatePage"></Paginator>
+        <Paginator v-if="results.length"
+                   :per-page="perPage"
+                   :results="results"
+                   @updatePage="updatePage"></Paginator>
 
     </div>
 </template>
@@ -36,10 +39,11 @@
         },
         computed: {
             reports () {
-                return this.$store.getters.report;
+                return this.$store.getters.report
             },
             paginatedResults () {
-                return this.paginate(this.reports);
+                this.results = this.reports
+                return this.paginate(this.reports)
             }
         },
         methods: {
@@ -54,11 +58,9 @@
             }
         },
         created() {
-            // Fetch covid data
             this.$store.dispatch('fetchReport')
                 .then(res => {
                     this.results = this.$store.getters.report
-                    // console.log('RRER', this.results)
                 })
                 .catch(error => {
 
