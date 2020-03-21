@@ -34,6 +34,18 @@
             box-shadow: 0 4px 13px -8px rgba(0,0,0,0.4);
             max-width: 200px;
             border-radius: 20px;
+
+            &::-webkit-input-placeholder { /* Edge */
+                color: #b6b6b6;
+            }
+
+            &::-ms-input-placeholder { /* Internet Explorer 10-11 */
+                color: #b6b6b6;
+            }
+
+            &::placeholder {
+                color: #b6b6b6;
+            }
         }
     }
 </style>

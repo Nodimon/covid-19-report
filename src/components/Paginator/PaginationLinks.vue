@@ -77,6 +77,7 @@
 </template>
 <script>
     export default {
+        name: 'PaginationLinks',
         props: {
             pagination: {
                 type: Object
@@ -100,8 +101,30 @@
         }
     }
 </script>
-<style scoped>
+<style scoped lang="scss">
     span {
         display: inherit;
     }
+
+    .page-item {
+        margin: 0 5px !important;
+        box-shadow: 0 4px 13px -8px rgba(0,0,0,0.4);
+
+        &.active .page-link{
+            background-color: #1d8fd3 !important;
+            color: #fff !important;
+        }
+
+        a {
+            color: #1d8fd3 !important;
+            &:focus {
+                outline: none;
+                border: none !important;
+                -webkit-box-shadow: none !important;
+                -moz-box-shadow: none !important;
+                box-shadow: none !important;
+            }
+        }
+    }
+
 </style>

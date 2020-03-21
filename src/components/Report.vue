@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid" id="report">
+    <div class="container-fluid">
 
         <AppHeader></AppHeader>
 
@@ -13,7 +13,8 @@
         <Paginator v-if="results.length"
                    :per-page="perPage"
                    :results="results"
-                   @updatePage="updatePage"></Paginator>
+                   @updatePage="updatePage">
+        </Paginator>
 
     </div>
 </template>
@@ -58,19 +59,10 @@
             }
         },
         created() {
-            this.$store.dispatch('fetchReport')
-                .then(res => {
-                    this.results = this.$store.getters.report
-                })
-                .catch(error => {
-
-                })
+            this.results = this.$store.getters.report
         }
     }
 </script>
 
 <style scoped>
-    #report {
-        flex: 1;
-    }
 </style>

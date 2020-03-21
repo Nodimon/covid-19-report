@@ -1,14 +1,14 @@
 <template>
-    <ComplexPagination :pagination="pagination" v-on:paginationUpdate="updatePagination"></ComplexPagination>
+    <PaginationLinks :pagination="pagination" v-on:paginationUpdate="updatePagination"></PaginationLinks>
 </template>
 
 <script>
-    import ComplexPagination from "./ComplexPagination";
+    import PaginationLinks from "./PaginationLinks";
 
     export default {
         name: "Paginator",
         components: {
-            ComplexPagination
+            PaginationLinks
         },
         props: {
             results: {

@@ -1,11 +1,12 @@
 <template>
-    <div class="col-md-12 col-lg-4">
-        <div class="country-card p-3">
-            <h4><strong>{{ countryData[0] }}</strong></h4>
+    <div :class="width">
+        <div class="country-card pt-3 pl-3 pr-3">
+
+            <h4 @click="openCountry(countryData[0])"><strong>{{ countryData[0] }}</strong></h4>
 
             <hr>
 
-            <div class="d-flex justify-content-between p-4 mt-3">
+            <div class="d-flex justify-content-between pt-4 pb-4 mt-3">
                 <p style="font-weight:600; color: #1d8fd3">Confirmed: {{ confirmed }}</p>
                 <p style="font-weight:600; color: #429b9a">Recovered: {{ recovered }}</p>
                 <p style="font-weight:600; color: #ba3937">Deaths: {{ dead }}</p>
@@ -30,6 +31,10 @@
             countryName: {
                 type: String,
                 default: ''
+            },
+            width: {
+                type: String,
+                default: 'col-md-12 col-lg-4'
             }
         },
         data() {
@@ -43,28 +48,27 @@
                     colors: [
                        '#1d8fd3', '#429b9a', '#ba3937'
                     ],
+                    legend: {
+                        show: false
+                    },
                     chart: {
                         type: 'area',
                         stacked: false,
                         height: 350,
                         zoom: {
                             type: 'x',
-                            enabled: true,
-                            autoScaleYaxis: true
+                            enabled: false,
+                            autoScaleYaxis: false
                         },
                         toolbar: {
                             autoSelected: 'zoom'
                         }
                     },
                     dataLabels: {
-                        enabled: false
+                        enabled: true
                     },
                     markers: {
                         size: 0,
-                    },
-                    title: {
-                        text: 'Stock Price Movement',
-                        align: 'left'
                     },
                     fill: {
                         type: 'gradient',
@@ -82,10 +86,7 @@
                                 return val
                                 // return (val / 1000000).toFixed(0);
                             },
-                        },
-                        title: {
-                            text: 'Number'
-                        },
+                        }
                     },
                     xaxis: {
                         categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
@@ -94,7 +95,7 @@
                         }
                     },
                     tooltip: {
-                        shared: false,
+                        shared: true,
                         y: {
                             formatter: function (val) {
                                 return val
@@ -114,6 +115,9 @@
             }
         },
         methods: {
+            openCountry(country) {
+                this.$router.push({name: 'country-view', params: { country}})
+            },
             calculateStats() {
                 this.confirmed = this.countryData[1][this.countryData[1].length - 1].confirmed
                 this.recovered = this.countryData[1][this.countryData[1].length - 1].recovered
@@ -125,20 +129,23 @@
             updateChart() {
                 let confirmed = []
                 let recovered = []
-                let deaths = []
-                const dataLength = this.countryData[1].length;
+                let deaths    = []
 
+                const dataLength = this.countryData[1].length;
                 for (let i = 0; i < dataLength - 7; i += 10) {
-                    this.dates.push(this.countryData[1][i].date)
-                    confirmed.push(this.countryData[1][i].confirmed)
-                    recovered.push(this.countryData[1][i].recovered)
-                    deaths.push(this.countryData[1][i].deaths)
+                    let current = this.countryData[1][i];
+
+                    this.dates.push(current.date)
+                    confirmed.push(current.confirmed)
+                    recovered.push(current.recovered)
+                    deaths.push(current.deaths)
                 }
 
-                this.dates.push(this.countryData[1][dataLength-1].date)
-                confirmed.push(this.countryData[1][dataLength-1].confirmed)
-                recovered.push(this.countryData[1][dataLength-1].recovered)
-                deaths.push(this.countryData[1][dataLength-1].deaths)
+                let last = this.countryData[1][dataLength-1]
+                this.dates.push(last.date)
+                confirmed.push(last.confirmed)
+                recovered.push(last.recovered)
+                deaths.push(last.deaths)
 
                 this.chartOptions = {...this.chartOptions, ...{
                         xaxis: {
@@ -167,7 +174,6 @@
             }
         },
         created() {
-            // console.log("Props", this.$props)
             this.calculateStats();
         }
     }
@@ -176,11 +182,11 @@
 <style scoped lang="scss">
     .country-card {
         background-color: white;
-        /*border: 1px solid rgba(105, 105, 105, 0.38);*/
         border-radius: 15px;
         margin-bottom: 30px;
         box-shadow: 0 8px 16px -8px rgba(0,0,0,0.4);
         transition: all .3s ease;
+
         &:hover {
             cursor: pointer;
         }
