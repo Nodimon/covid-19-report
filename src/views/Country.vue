@@ -9,6 +9,7 @@
             </CountryCard>
 
             <Table :data="[...this.countryData[1]]">
+
                 <template slot="thead">
                     <t-th title="Date" sort-key="date"></t-th>
                     <t-th title="Confirmed" sort-key="confirmed"></t-th>
@@ -91,10 +92,3 @@
         }
     }
 </script>
-
-<style scoped lang="scss">
-    #table {
-        background-color: #fff;
-        border-radius: 15px;
-    }
-</style>

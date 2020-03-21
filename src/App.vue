@@ -5,34 +5,35 @@
 </template>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
+  @import "assets/app";
 
-html, body {
-    font-family: 'Roboto Condensed', sans-serif;
-    background-color: #e8e8e8 !important;
+  @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
 
-}
+  html, body {
+      font-family: 'Roboto Condensed', sans-serif;
+      background-color: #e8e8e8 !important;
 
-#app {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    /*background: #f8f8f8;*/
-    font-family: 'Roboto Condensed', sans-serif;
+  }
 
-}
+  #app {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-align: center;
+      color: #2c3e50;
+      font-family: 'Roboto Condensed', sans-serif;
 
-#nav {
-  padding: 30px;
+  }
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+  #nav {
+    padding: 30px;
 
-    &.router-link-exact-active {
-      color: #42b983;
+    a {
+      font-weight: bold;
+      color: #2c3e50;
+
+      &.router-link-exact-active {
+        color: #42b983;
+      }
     }
   }
-}
 </style>

@@ -75,6 +75,10 @@
     }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+    #table {
+        background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 8px 16px -8px rgba(0,0,0,0.4);
+    }
 </style>
