@@ -1,12 +1,14 @@
 <template>
     <div class="col-md-12 col-lg-4">
         <div class="country-card p-3">
-            <h4>{{ countryData[0] }}</h4>
+            <h4><strong>{{ countryData[0] }}</strong></h4>
+
+            <hr>
 
             <div class="d-flex justify-content-between p-4 mt-3">
-                <p>Confirmed: {{ confirmed }}</p>
-                <p>Recovered: {{ recovered }}</p>
-                <p>Deaths: {{ dead }}</p>
+                <p style="font-weight:600; color: #1d8fd3">Confirmed: {{ confirmed }}</p>
+                <p style="font-weight:600; color: #429b9a">Recovered: {{ recovered }}</p>
+                <p style="font-weight:600; color: #ba3937">Deaths: {{ dead }}</p>
             </div>
 
             <div id="chart">
@@ -38,6 +40,9 @@
                 dates: [],
                 series: [],
                 chartOptions: {
+                    colors: [
+                       '#1d8fd3', '#429b9a', '#ba3937'
+                    ],
                     chart: {
                         type: 'area',
                         stacked: false,
@@ -168,11 +173,16 @@
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
     .country-card {
-        border: 1px solid rgba(105, 105, 105, 0.38);
-        /*border-radius: 20px;*/
-        /*height: 350px;*/
+        background-color: white;
+        /*border: 1px solid rgba(105, 105, 105, 0.38);*/
+        border-radius: 15px;
         margin-bottom: 30px;
+        box-shadow: 0 8px 16px -8px rgba(0,0,0,0.4);
+        transition: all .3s ease;
+        &:hover {
+            cursor: pointer;
+        }
     }
 </style>

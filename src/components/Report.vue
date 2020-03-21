@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid" id="report">
 
-        <Search></Search>
+        <AppHeader></AppHeader>
 
         <div class="row">
             <CountryCard v-for="(countryData, index) in paginatedResults"
@@ -19,16 +19,16 @@
 </template>
 
 <script>
+    import AppHeader from "./Header";
     import CountryCard from "./CountryCard";
-    import Search from "./Search";
     import Paginator from "./Paginator/Paginator";
 
     export default {
         name: "Report",
         components: {
             CountryCard,
-            Search,
-            Paginator
+            Paginator,
+            AppHeader
         },
         data() {
             return {

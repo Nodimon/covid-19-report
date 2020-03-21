@@ -1,21 +1,18 @@
 <template>
   <div class="home">
-    <h2>COVID-19 REPORT</h2>
+    <h2 class="mb-5 p-3"><strong>COVID-19 REPORT</strong></h2>
     <div class="wrapper">
-      <Sidebar></Sidebar>
       <Report></Report>
     </div>
   </div>
 </template>
 
 <script>
-import Sidebar from "../components/Sidebar.vue";
 import Report from "../components/Report";
 
 export default {
   name: 'Home',
   components: {
-    Sidebar,
     Report
   },
 
@@ -24,9 +21,9 @@ export default {
 
 <style lang="scss">
   .wrapper {
-    display: flex;
+    /*display: flex;*/
   }
-  h2 {
-    margin-bottom: 5rem !important;
-  }
+  /*h1 {*/
+  /*  margin-bottom: 4rem !important;*/
+  /*}*/
 </style>

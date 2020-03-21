@@ -1,14 +1,18 @@
 <template>
-    <div id="search" class="d-flex justify-content-end">
-        <input v-model="search" type="text" class="form-control mb-3" aria-describedby="search" placeholder="Search">
+    <div id="search" class="d-flex">
+        <input v-model="search" type="text" class="align-self-end form-control" aria-describedby="search" placeholder="Country...">
     </div>
 </template>
 
 <script>
     import { debounce } from "debounce";
+    import WorldTotal from "./WorldTotal";
 
     export default {
         name: "Search",
+        components: {
+            WorldTotal
+        },
         data() {
             return {
                 search: ''
@@ -26,7 +30,9 @@
     #search {
 
         input {
-            width: 50%;
+            border: none;
+            box-shadow: 0 4px 13px -8px rgba(0,0,0,0.4);
+            max-width: 200px;
             border-radius: 20px;
         }
     }
